@@ -37,9 +37,13 @@ RUN dpkg -i /tmp/pure-ftpd/pure-ftpd_*.deb
 # Prevent pure-ftpd upgrading
 RUN apt-mark hold pure-ftpd pure-ftpd-common
 
-# setup ftpgroup and ftpuser
-RUN groupadd ftpgroup
-RUN useradd -g ftpgroup -d /home/ftpusers -s /dev/null ftpuser
+# add args to set user id and group id 
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+# setup ftpgroup and ftpuser using user id an group id from args
+RUN groupadd -g $GROUP_ID ftpgroup
+RUN useradd -u $USER_ID -g ftpgroup -d /home/ftpusers -s /dev/null ftpuser
 
 ENV PUBLICHOST ftp.foo.com
 
