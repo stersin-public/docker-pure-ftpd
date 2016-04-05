@@ -48,6 +48,7 @@ RUN useradd -u $USER_ID -g ftpgroup -d /home/ftpusers -s /dev/null ftpuser
 ENV PUBLICHOST ftp.foo.com
 
 VOLUME /home/ftpusers
+VOLUME /etc/pure-ftpd
 
 # startup
 CMD /usr/sbin/pure-ftpd -c 50 -C 10 -l puredb:/etc/pure-ftpd/pureftpd.pdb -E -j -R -P $PUBLICHOST -p 30000:30009
